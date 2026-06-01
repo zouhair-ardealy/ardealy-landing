@@ -868,8 +868,8 @@ p{color:var(--gray)}
   }
   /* expose the lead's brand so the visualizer overlay can co-brand its loading screen */
   window.__lead={logo:null,name:label,ini:initials(label),hue:hue(label||'x'),domain:domain};
-  if(!logoUrl){ monoBoth(); }
-  else { loadTrimmed(logoUrl,function(res){ if(!res){ monoBoth(); return; } window.__lead.logo=res; setImg(navImg,navTxt,res); setImg(vizImg,vizTxt,res); }); }
+  monoBoth(); /* render the monogram synchronously first -> the "Client logo" placeholder never flashes */
+  if(logoUrl){ loadTrimmed(logoUrl,function(res){ if(res){ window.__lead.logo=res; setImg(navImg,navTxt,res); setImg(vizImg,vizTxt,res); } }); }
 })();
 
 // scroll reveal
