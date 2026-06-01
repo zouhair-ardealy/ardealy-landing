@@ -97,7 +97,7 @@ p{color:var(--gray)}
 .viz.viz-lg{aspect-ratio:auto;background:#fff}
 .viz.viz-lg .fallback{position:relative;inset:auto;width:100%;height:auto;display:block;object-fit:unset}
 .viz-logo{position:absolute;top:12px;left:12px;z-index:3;display:inline-flex;align-items:center;justify-content:center;height:30px;min-width:82px;padding:0 12px;border:1px dashed #C2C0B9;border-radius:7px;background:rgba(255,255,255,.92);color:var(--faint);font-size:9px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
-.viz-logo-img{position:absolute;top:12px;left:12px;z-index:3;height:30px}
+.viz-logo-img{position:absolute;top:12px;left:12px;z-index:3;height:30px;width:auto;padding:5px 9px;background:rgba(255,255,255,.94);border-radius:7px;box-shadow:0 1px 5px rgba(0,0,0,.12);object-fit:contain}
 .vizsteps{display:flex;justify-content:center;gap:36px;margin-top:24px;flex-wrap:wrap;color:var(--gray);font-size:14px;font-weight:500}
 .vizsteps b{color:var(--ink);font-family:var(--title);font-weight:700;margin-right:7px}
 /* before/after slider */
@@ -417,10 +417,10 @@ p{color:var(--gray)}
   <div class="wrap nav-in">
     <a href="#top" class="cobrand">
       <img class="logo" src="assets/ardealy_logo.png" alt="ARdealy">
-      <span class="cobrand-x">&times;</span>
-      <!-- TODO: replace this placeholder with the lead's logo, e.g.:
-           <img class="lead-logo-img" src="assets/lead-logo.png" alt="Client name"> -->
-      <span class="lead-logo">Client logo</span>
+      <span class="cobrand-x" id="cobrandX">&times;</span>
+      <!-- Co-branding, personalized per lead via ?d=<domain> (see personalization script). -->
+      <img class="lead-logo-img" id="leadLogoNav" alt="" style="display:none">
+      <span class="lead-logo" id="leadLogoNavText">Client logo</span>
     </a>
     <nav class="nav-links">
       <a href="#how">How it works</a>
@@ -451,7 +451,7 @@ p{color:var(--gray)}
     </div>
     <div class="reveal">
       <div class="window">
-        <div class="window-bar"><span class="dotr"></span><span class="dotr"></span><span class="dotr"></span><span class="window-url">yourbrand.com</span></div>
+        <div class="window-bar"><span class="dotr"></span><span class="dotr"></span><span class="dotr"></span><span class="window-url" id="heroUrl">yourbrand.com</span></div>
         <div class="hero-media">
           <!-- TODO: swap for a dedicated HD room render. File: assets/hero-render.png -->
           <img src="assets/hero-render.png" alt="A floor visualized in a real room">
@@ -529,11 +529,11 @@ p{color:var(--gray)}
     <!-- LIVE VISUALIZER (interactive demo) -->
     <div class="vizwrap reveal">
       <div class="window">
-        <div class="window-bar"><span class="dotr"></span><span class="dotr"></span><span class="dotr"></span><span class="window-url">visualizer.clientbrand.com</span></div>
+        <div class="window-bar"><span class="dotr"></span><span class="dotr"></span><span class="dotr"></span><span class="window-url" id="vizUrl">visualizer.clientbrand.com</span></div>
         <div class="viz viz-lg">
-          <!-- client logo overlay (co-branding). TODO: replace with the lead's logo:
-               <img class="viz-logo-img" src="assets/lead-logo.png" alt="Client"> -->
-          <div class="viz-logo">Client logo</div>
+          <!-- co-branding overlay, personalized per lead via ?d=<domain> -->
+          <img class="viz-logo-img" id="leadLogoViz" alt="" style="display:none">
+          <div class="viz-logo" id="leadLogoVizText">Client logo</div>
           <!-- TODO: replace the fallback image with your live visualizer embed:
                <iframe src="https://YOUR-ARDEALY-VISUALIZER-EMBED-URL" allowfullscreen></iframe> -->
           <img class="fallback" src="assets/visualizer.png" alt="ARdealy live visualizer">
@@ -796,6 +796,46 @@ p{color:var(--gray)}
 <div class="mcta"><a href="#access" class="btn btn-dark">Book a demo</a></div>
 
 <script>
+/* ===== PER-LEAD PERSONALIZATION ====================================================
+   Append ?d=<company-domain> to the URL to co-brand the page for a specific lead.
+   The logo is fetched automatically from the company domain (Google/DuckDuckGo favicon),
+   so it scales across your whole Apollo list with zero manual uploads.
+     ?d=anitra.lv                      → logo + visualizer.anitra.lv
+     ?d=anitra.lv&name=Anitra          → name as text fallback if no logo is found
+     ?logo=https://.../logo.png        → explicit logo URL (overrides auto-fetch)
+   No params  → clean generic page (ARdealy only, no client badge).
+==================================================================================== */
+(function(){
+  var q=new URLSearchParams(location.search);
+  var g=function(k){return (q.get(k)||'').trim();};
+  var domain=(g('d')||g('domain')).toLowerCase().replace(/^https?:\/\//,'').replace(/^www\./,'').replace(/\/.*$/,'');
+  var name=g('name')||g('company')||g('c');
+  var logoOverride=g('logo');
+  var personalized=!!(domain||name||logoOverride);
+  var navX=document.getElementById('cobrandX'),
+      navImg=document.getElementById('leadLogoNav'), navTxt=document.getElementById('leadLogoNavText'),
+      vizImg=document.getElementById('leadLogoViz'), vizTxt=document.getElementById('leadLogoVizText'),
+      heroUrl=document.getElementById('heroUrl'), vizUrl=document.getElementById('vizUrl');
+  if(!personalized){ [navX,navTxt,vizTxt].forEach(function(el){if(el)el.style.display='none';}); return; }
+  if(domain){ if(vizUrl)vizUrl.textContent='visualizer.'+domain; if(heroUrl)heroUrl.textContent=domain; }
+  var label=name||domain||'';
+  var sources=logoOverride?[logoOverride]:(domain?[
+    'https://www.google.com/s2/favicons?domain='+domain+'&sz=128',
+    'https://icons.duckduckgo.com/ip3/'+domain+'.ico'
+  ]:[]);
+  function applyLogo(img,txt){
+    if(!img||!txt)return;
+    if(label)txt.textContent=label; /* show name first; logo swaps in on load */
+    if(!sources.length)return;
+    var i=0;
+    img.onload=function(){img.style.display='';txt.style.display='none';};
+    img.onerror=function(){ if(++i<sources.length){ img.src=sources[i]; } else { img.style.display='none';txt.style.display='';if(label)txt.textContent=label; } };
+    img.src=sources[0];
+  }
+  applyLogo(navImg,navTxt);
+  applyLogo(vizImg,vizTxt);
+})();
+
 // scroll reveal
 // stagger reveal of grid children
 document.querySelectorAll('.grid3,.grid2,.prices').forEach(g=>{
