@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARdealy — Let customers see your floors at home, and sell more</title>
+<meta name="description" content="ARdealy lets your customers visualize your floors in their own space, captures them as leads, and turns every render into marketing that sells. Built for flooring brands.">
+<meta property="og:title" content="ARdealy — See it at home. Sell more.">
+<meta property="og:description" content="The AI growth platform for flooring brands: photorealistic visualization, lead capture, and AI content in one place.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#17171A; --gray:#605F5F; --faint:#9A9A9E; --line:#E7E5E0;
+  --bg:#FFFFFF; --soft:#F3F2EF; --black:#161618; --card:#FFFFFF;
+  --title:'Albert Sans',system-ui,sans-serif; --body:'Geist',system-ui,sans-serif;
+  --maxw:1140px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--ink);background:var(--bg);line-height:1.5;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:var(--title);font-weight:500;letter-spacing:-.03em;line-height:1.08;color:#000}
+h2{font-size:clamp(28px,4vw,44px)}
+h3{font-size:20px;font-weight:600;letter-spacing:-.02em}
+p{color:var(--gray)}
+.dim{color:var(--faint)}
+.eyebrow{font-family:var(--body);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gray);font-weight:500}
+.section{padding:88px 0}
+.section.soft{background:var(--soft)}
+.lead{font-size:clamp(15px,1.6vw,18px);color:var(--gray);max-width:620px}
+.center{text-align:center}
+.center .lead{margin-left:auto;margin-right:auto}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--body);font-weight:600;font-size:15px;
+  border-radius:999px;padding:13px 26px;cursor:pointer;border:1px solid transparent;transition:.15s;white-space:nowrap}
+.btn-dark{background:var(--black);color:#fff}
+.btn-dark:hover{transform:translateY(-1px);opacity:.92}
+.btn-ghost{background:#fff;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{border-color:#cfcdc7}
+.btn-lg{padding:16px 32px;font-size:16px}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid var(--line);transition:box-shadow .25s ease}
+.nav.scrolled{box-shadow:0 8px 30px -16px rgba(0,0,0,.16)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:72px}
+.cobrand{display:flex;align-items:center;gap:14px}
+.nav .logo{height:34px}
+.cobrand-x{color:var(--faint);font-size:19px;font-weight:300}
+.lead-logo{display:inline-flex;align-items:center;justify-content:center;height:34px;min-width:100px;padding:0 14px;border:1px dashed #C9C7C0;border-radius:8px;font-size:9.5px;letter-spacing:.14em;color:var(--faint);font-weight:600;text-transform:uppercase;font-family:var(--body)}
+.lead-logo-img{height:26px;width:auto;max-width:150px;object-fit:contain}
+.lead-mono{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;color:#fff;font-family:var(--title);font-weight:600;font-size:12px;letter-spacing:0;flex:none}
+.lead-name{font-family:var(--body);font-weight:500;color:var(--ink);white-space:nowrap}
+.lead-logo.filled{border:none;background:none;min-width:0;padding:0;height:auto;display:inline-flex;align-items:center;gap:8px;text-transform:none;letter-spacing:normal;color:var(--ink)}
+.lead-logo.filled .lead-name{font-size:14px}
+.nav-links{display:flex;align-items:center;gap:30px}
+.nav-links a{font-size:14px;color:var(--gray);font-weight:500}
+.nav-links a:hover{color:var(--ink)}
+.nav .btn{padding:10px 20px;font-size:14px}
+
+/* hero */
+.hero{padding:64px 0 72px}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;
+  padding:7px 15px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);font-weight:500}
+.hero h1{font-size:clamp(38px,5vw,58px);margin:22px 0 0}
+.hero .lead{margin-top:20px;font-size:clamp(16px,1.7vw,19px)}
+.hero-cta{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
+.specs{display:flex;gap:26px;margin-top:30px;flex-wrap:wrap;color:var(--gray);font-size:13px;font-weight:500}
+.specs b{color:var(--ink);font-weight:600}
+/* hero floating chips */
+.hero-media{position:relative;line-height:0}
+.hero-media>img{width:100%;height:auto;display:block}
+.chip{position:absolute;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.97);border-radius:12px;padding:9px 12px;box-shadow:0 14px 34px -14px rgba(0,0,0,.32);font-family:var(--body);line-height:1.25;opacity:0;animation:chipIn .6s cubic-bezier(.2,.7,.2,1) forwards}
+.chip b{display:block;font-size:12.5px;font-weight:600;color:var(--ink)}
+.chip span{font-size:11px;color:var(--gray)}
+.chip-swatch{left:16px;bottom:16px;animation-delay:.5s}
+.chip-swatch img{width:34px;height:34px;border-radius:8px;object-fit:cover}
+.chip-feed{position:absolute;right:16px;top:16px;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.chip-feed .chip{position:relative;inset:auto}
+.chip-lead{animation-delay:1.15s}
+.chip-order{animation-delay:1.8s}
+.chip-order .chip-ic{background:#16A34A}
+.chip-ic{width:26px;height:26px;border-radius:50%;background:var(--black);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.chip-ic svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}
+@keyframes chipIn{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
+/* app window frame */
+.window{border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff;box-shadow:0 30px 60px -30px rgba(0,0,0,.22);transition:transform .3s ease,box-shadow .3s ease}
+.window:hover{transform:translateY(-4px);box-shadow:0 42px 72px -32px rgba(0,0,0,.28)}
+.viz .play span{position:relative;transition:transform .2s ease}
+.viz .play:hover span{transform:scale(1.06)}
+.viz .play span::before,.viz .play span::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;animation:pulseRing 2.4s cubic-bezier(.2,.6,.3,1) infinite}
+.viz .play span::after{animation-delay:1.2s}
+@keyframes pulseRing{0%{box-shadow:0 0 0 0 rgba(22,22,24,.42)}70%{box-shadow:0 0 0 22px rgba(22,22,24,0)}100%{box-shadow:0 0 0 0 rgba(22,22,24,0)}}
+.vizwrap{max-width:1100px;margin:40px auto 0}
+.viz.viz-lg{aspect-ratio:auto;background:#fff}
+.viz.viz-lg .fallback{position:relative;inset:auto;width:100%;height:auto;display:block;object-fit:unset}
+.viz-logo{position:absolute;top:6px;left:12px;z-index:3;display:inline-flex;align-items:center;justify-content:center;height:30px;min-width:82px;padding:0 12px;border:1px dashed #C2C0B9;border-radius:7px;background:rgba(255,255,255,.92);color:var(--faint);font-size:9px;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+.viz-logo-img{position:absolute;top:6px;left:12px;z-index:3;height:26px;width:auto;max-width:150px;padding:6px 10px;background:rgba(255,255,255,.94);border-radius:7px;box-shadow:0 1px 5px rgba(0,0,0,.12);object-fit:contain;box-sizing:content-box}
+.viz-logo.filled{border:none;min-width:0;height:auto;display:inline-flex;align-items:center;gap:7px;padding:5px 11px 5px 6px;text-transform:none;letter-spacing:normal;background:rgba(255,255,255,.95);box-shadow:0 1px 5px rgba(0,0,0,.12)}
+.viz-logo.filled .lead-mono{width:22px;height:22px;font-size:11px;border-radius:5px}
+.viz-logo.filled .lead-name{font-size:12px;color:#17171A}
+.vizsteps{display:flex;justify-content:center;gap:36px;margin-top:24px;flex-wrap:wrap;color:var(--gray);font-size:14px;font-weight:500}
+.vizsteps b{color:var(--ink);font-family:var(--title);font-weight:700;margin-right:7px}
+/* before/after slider */
+.ba-slider{position:relative;margin-top:40px;border-radius:16px;overflow:hidden;aspect-ratio:1600/1150;border:1px solid var(--line);cursor:ew-resize;touch-action:pan-y;background:#ECEBE7}
+.ba-after,.ba-before{position:absolute;inset:0}
+.ba-before{clip-path:inset(0 50% 0 0);will-change:clip-path}
+.ba-slider .ba-fill{position:absolute;inset:0;height:100%;width:100%;border:0;border-radius:0;margin:0}
+.ba-slider img.ba-fill{object-fit:cover}
+.ph-before{background:#E2E0DA}
+.ba-lab{position:absolute;top:14px;z-index:4;background:rgba(255,255,255,.92);color:var(--ink);font-size:10px;letter-spacing:.12em;padding:5px 11px;border-radius:999px;font-weight:700}
+.ba-lab.l{left:14px}.ba-lab.r{right:14px}
+.ba-handle{position:absolute;top:0;bottom:0;left:50%;width:2px;background:#fff;transform:translateX(-1px);z-index:5;box-shadow:0 0 0 1px rgba(0,0,0,.05);will-change:left}
+.ba-knob{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:42px;height:42px;border-radius:50%;background:#fff;box-shadow:0 5px 16px rgba(0,0,0,.20);display:flex;align-items:center;justify-content:center;color:var(--ink);font-size:15px;letter-spacing:-2px}
+.window-bar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:#F6F5F2;border-bottom:1px solid var(--line)}
+.dotr{width:11px;height:11px;border-radius:50%;background:#D7D5CF}
+.window-url{margin-left:10px;font-size:11px;color:var(--faint);font-family:var(--body)}
+.viz{position:relative;aspect-ratio:16/11;background:#ECEAE5}
+.viz iframe{width:100%;height:100%;border:0;display:block}
+.viz .fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.viz .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.viz .play span{background:rgba(22,22,24,.86);color:#fff;border-radius:999px;padding:12px 22px;font-weight:600;font-size:14px;display:inline-flex;gap:8px;align-items:center}
+
+/* generic grid of cards */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:48px}
+.card{background:var(--card);border-radius:16px;padding:30px 28px;border:1px solid var(--line);transition:transform .25s ease,box-shadow .25s ease}
+.card:hover{transform:translateY(-4px);box-shadow:0 20px 44px -22px rgba(0,0,0,.20)}
+.card .num{font-family:var(--title);font-weight:700;font-size:30px;color:#D8D7D2;line-height:1}
+.card .aline{width:28px;height:2px;background:var(--ink);border-radius:2px;margin:14px 0 16px}
+.card .tag{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gray);font-weight:500}
+.card h3{margin:8px 0 10px}
+.card p{font-size:14px}
+.card .shot{margin-top:18px;border-radius:8px;border:1px solid var(--line)}
+
+/* image placeholders + media bands */
+.ph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;background:#ECEBE7;border:1px dashed #C5C3BB;border-radius:14px;color:var(--faint);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;text-align:center;padding:24px}
+.ph svg{width:28px;height:28px;opacity:.55;stroke:currentColor;fill:none;stroke-width:1.5}
+.ph small{font-size:10px;letter-spacing:.03em;text-transform:none;font-weight:500;opacity:.85}
+.ph-portrait{aspect-ratio:4/5}
+.ph-wide{aspect-ratio:16/6}
+.ph-sq{aspect-ratio:1/1;padding:14px}
+.prob-photo{width:100%;max-width:450px;margin:0 auto;height:auto;display:block;border-radius:16px;box-shadow:0 30px 60px -30px rgba(0,0,0,.22)}
+/* go-live interactive tabs */
+.golive-tab{cursor:pointer}
+.golive-tab .num{transition:color .25s}
+.golive-tab.active{box-shadow:inset 0 0 0 1.6px var(--ink)}
+.golive-tab.active .num{color:var(--ink)}
+.golive-screen{margin-top:30px;overflow:hidden;border-radius:18px;border:1px solid var(--line);background:linear-gradient(180deg,#FBFAF8,#F1F0EC)}
+.golive-panels{position:relative;aspect-ratio:16/5}
+.golive-panel{position:absolute;inset:0;opacity:0;transform:translateX(20px);transition:opacity .45s cubic-bezier(.2,.7,.2,1),transform .45s cubic-bezier(.2,.7,.2,1);pointer-events:none}
+.golive-panel.active{opacity:1;transform:none;pointer-events:auto}
+/* illustrations */
+.gl{display:flex;align-items:center;justify-content:center;gap:18px;height:100%;padding:16px 28px}
+.gl-col{display:flex;flex-direction:column;align-items:center}
+.gl-step{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--gray);font-weight:600;margin-bottom:13px;text-align:center}
+.gl-arrow{color:#CFCDC6;font-size:22px;flex:0 0 auto}
+.gl-badge{display:inline-flex;align-items:center;gap:7px;background:#E7F6EC;color:#15803D;font-size:11px;font-weight:600;padding:5px 11px;border-radius:999px;margin-bottom:13px}
+.gl-dot{width:7px;height:7px;border-radius:50%;background:#16A34A;box-shadow:0 0 0 0 rgba(22,163,74,.5);animation:glDot 2s infinite}
+@keyframes glDot{0%{box-shadow:0 0 0 0 rgba(22,163,74,.5)}70%{box-shadow:0 0 0 7px rgba(22,163,74,0)}100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}}
+.gl-srcs{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.gl-src{background:#fff;border:1px solid var(--line);border-radius:10px;width:70px;height:68px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:10px;color:var(--ink);font-weight:500;box-shadow:0 2px 6px rgba(0,0,0,.04);transition:box-shadow .3s}
+.gl-src svg{width:18px;height:18px;stroke:var(--ink);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.gl-gen{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px;box-shadow:0 4px 14px rgba(0,0,0,.05)}
+.gl-genrow{display:flex;gap:7px;align-items:center;margin-bottom:11px}
+.gl-input{flex:1;background:#F4F3F0;border:1px solid var(--line);border-radius:7px;padding:6px 9px;font-size:10.5px;color:var(--gray);white-space:nowrap}
+.gl-genbtn{background:var(--black);color:#fff;border:0;border-radius:7px;padding:6px 12px;font-size:10.5px;font-weight:600;cursor:pointer}
+.gl-tiles{display:flex;align-items:center;gap:8px}
+.gl-tile{width:74px;height:58px;border-radius:8px;position:relative;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.gl-tlab{position:absolute;top:6px;left:6px;background:rgba(255,255,255,.88);color:var(--ink);font-size:8.5px;font-weight:600;padding:2px 6px;border-radius:5px}
+.gl-tlab-g{background:#16A34A;color:#fff}
+.gl-swatches{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.gl-sw{width:58px;height:50px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,.07);background:var(--sw);opacity:0;transform:translateY(8px);animation:glSwIn .5s ease forwards}
+@keyframes glSwIn{to{opacity:1;transform:none}}
+/* customize */
+.gl-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;box-shadow:0 4px 14px rgba(0,0,0,.05)}
+.gl-logoslot{display:inline-flex;align-items:center;justify-content:center;height:30px;min-width:96px;padding:0 14px;border:1px dashed #C9C7C0;border-radius:7px;font-size:9px;letter-spacing:.12em;color:var(--faint);font-weight:600;text-transform:uppercase;margin-bottom:12px}
+.gl-colors{display:flex;gap:8px}
+.gl-cc{width:22px;height:22px;border-radius:50%;cursor:pointer;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.gl-cc.on{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--ink)}
+.gl-widget{width:180px;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 8px 22px rgba(0,0,0,.08)}
+.gl-wtop{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border-bottom:1px solid var(--line)}
+.gl-wlogo{font-size:8px;letter-spacing:.1em;color:var(--faint);font-weight:700}
+.gl-wdots i{display:inline-block;width:5px;height:5px;border-radius:50%;background:#D7D5CF;margin-left:3px}
+.gl-wroom{height:78px;background:linear-gradient(135deg,#e9e3d8,#d9cdbb)}
+.gl-wbtn{display:block;width:calc(100% - 20px);margin:10px;border:0;border-radius:8px;padding:8px;color:#fff;font-size:10px;font-weight:600;background:var(--accent,#16A34A);transition:background .4s}
+/* customize v2: branding settings + live preview */
+.gl-settings{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 15px;width:236px;box-shadow:0 4px 14px rgba(0,0,0,.05)}
+.gl-srow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0}
+.gl-srow+.gl-srow{border-top:1px solid var(--line)}
+.gl-slabel{font-size:10px;color:var(--gray);font-weight:500}
+.gl-logoslot2{display:inline-flex;align-items:center;justify-content:center;height:24px;padding:0 10px;border:1px dashed #C9C7C0;border-radius:6px;font-size:7.5px;letter-spacing:.1em;color:var(--faint);font-weight:600;text-transform:uppercase}
+.gl-cfield{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:7px;padding:4px 9px;font-size:10px;color:var(--ink);font-weight:500}
+.gl-cdot{width:14px;height:14px;border-radius:4px;background:#07598B;transition:background .4s}
+.gl-slider2{display:flex;align-items:center;gap:8px;font-size:10px;color:var(--gray)}
+.gl-strack{position:relative;width:64px;height:4px;border-radius:2px;background:var(--line)}
+.gl-sfill{position:absolute;left:0;top:0;height:100%;border-radius:2px;background:var(--ink);width:50%;transition:width .4s}
+.gl-sknob{position:absolute;top:50%;width:11px;height:11px;border-radius:50%;background:var(--ink);transform:translate(-50%,-50%);left:50%;transition:left .4s}
+.gl-preview{position:relative;width:152px;background:#fff;border:1px solid var(--line);padding:12px;box-shadow:0 8px 22px rgba(0,0,0,.08);border-radius:8px;transition:border-radius .4s}
+.gl-pnew{position:absolute;top:10px;right:10px;background:var(--black);color:#fff;font-size:7px;font-weight:700;padding:3px 7px;border-radius:5px}
+.gl-pimg{height:72px;border-radius:8px;background:linear-gradient(135deg,#ece6da,#dccfbd);margin-bottom:10px}
+.gl-pline{height:6px;width:62%;border-radius:3px;background:var(--line);margin-bottom:12px}
+.gl-pbtn{display:block;width:100%;border:0;padding:8px;color:#fff;font-size:10px;font-weight:600;background:#07598B;border-radius:8px;transition:background .4s,border-radius .4s}
+/* studio content multiplier */
+.studio-gen{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 12px 32px -18px rgba(0,0,0,.16)}
+.sg-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.sg-product{display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:600;color:var(--ink);background:#F4F3F0;border:1px solid var(--line);border-radius:999px;padding:5px 13px 5px 6px}
+.sg-sw{width:22px;height:22px;border-radius:50%;background:repeating-linear-gradient(20deg,#cda478,#cda478 4px,#c0986a 4px,#c0986a 8px)}
+.sg-gen{display:inline-flex;align-items:center;gap:6px;background:var(--black);color:#fff;border:0;border-radius:999px;padding:8px 15px;font-size:12px;font-weight:600;cursor:pointer;animation:glBtn 3.4s ease-in-out infinite}
+.sg-gen svg{width:12px;height:12px;fill:#fff}
+.sg-grid{column-count:3;column-gap:8px}
+.sg-tile{break-inside:avoid;margin-bottom:8px;border-radius:9px;background-size:cover;background-position:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.10);opacity:0;transform:scale(.92);animation:sgPop .5s cubic-bezier(.2,.8,.3,1.15) forwards}
+.sg-tile.sq{aspect-ratio:1/1}.sg-tile.st{aspect-ratio:4/5}.sg-tile.ld{aspect-ratio:16/10}
+@keyframes sgPop{to{opacity:1;transform:none}}
+.sg-ch{position:absolute;top:6px;right:6px;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:800;box-shadow:0 2px 5px rgba(0,0,0,.28)}
+.sg-ch svg{width:11px;height:11px}
+.sg-ch.ig{background:linear-gradient(45deg,#feda75,#d62976,#962fbf)}
+.sg-ch.fb{background:#1877F2}.sg-ch.pin{background:#E60023}.sg-ch.tt{background:#111}
+.sg-foot{margin-top:12px;font-size:12px;color:var(--gray);font-weight:500;text-align:center}
+.sg-foot b{font-family:var(--title);font-weight:700;color:var(--ink)}
+/* studio in action (auto-play tour) */
+.studio-canvas{position:relative;margin-top:30px;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#F6F5F2;aspect-ratio:2/1;box-shadow:0 18px 44px -24px rgba(0,0,0,.18)}
+.sc-scene{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:24px;opacity:0;transition:opacity .55s ease}
+.sc-scene.on{opacity:1}
+.sc-cap{position:absolute;left:18px;bottom:16px;z-index:2;display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:999px;padding:7px 15px;font-size:12.5px;font-weight:600;color:var(--ink);box-shadow:0 6px 18px -6px rgba(0,0,0,.18)}
+.sc-step{font-family:var(--title);font-weight:700;color:var(--faint);font-size:11px}
+.studio-feats{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:34px}
+/* social planner */
+.planner{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 14px 38px -22px rgba(0,0,0,.16);margin-top:30px}
+.pl-top{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.pl-top b{font-size:14px;font-weight:600}
+.pl-week{font-size:11px;color:var(--gray);background:#F4F3F0;border:1px solid var(--line);border-radius:999px;padding:3px 10px}
+.pl-chips{margin-left:auto;display:flex;gap:6px}
+.pl-chips i{width:18px;height:18px;border-radius:50%;display:inline-block}
+.pl-chips .ig{background:linear-gradient(45deg,#feda75,#d62976,#962fbf)}.pl-chips .fb{background:#1877F2}.pl-chips .pin{background:#E60023}.pl-chips .tt{background:#111}
+.pl-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;align-items:start}
+.pl-day{display:flex;flex-direction:column;gap:7px}
+.pl-d{font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--gray);font-weight:600;text-align:center;padding-bottom:5px;border-bottom:1px solid var(--line)}
+.pl-post{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:1/1;background-size:cover;background-position:center;box-shadow:0 2px 8px rgba(0,0,0,.10);opacity:0;transform:translateY(10px) scale(.95)}
+.planner.play .pl-post{animation:plDrop .5s cubic-bezier(.2,.8,.3,1.1) forwards}
+@keyframes plDrop{to{opacity:1;transform:none}}
+.pl-ch{position:absolute;top:4px;right:4px;width:15px;height:15px;border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.pl-ch.ig{background:linear-gradient(45deg,#feda75,#d62976,#962fbf)}.pl-ch.fb{background:#1877F2}.pl-ch.pin{background:#E60023}.pl-ch.tt{background:#111}
+.pl-time{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.55));color:#fff;font-size:8px;font-weight:600;padding:9px 5px 3px}
+.pl-foot{margin-top:14px;font-size:12px;color:var(--gray);font-weight:500;text-align:center}
+.pl-foot b{font-family:var(--title);font-weight:700;color:var(--ink)}
+/* platform tabs */
+.bo-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px}
+.bo-tab{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.bo-tab:hover{transform:translateY(-3px)}
+.bo-tab.active{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.bo-tab .icowrap{margin-bottom:12px}
+.bo-tab.active .icowrap{background:var(--ink)}
+.bo-tab.active .icowrap svg{stroke:#fff}
+.bo-tab .tag{display:block;margin-bottom:6px}
+.bo-tab h3{font-size:15px}
+.bo-screen{margin-top:26px}
+.bo-panel{display:none}
+.bo-panel.active{display:block;animation:boFade .45s ease}
+@keyframes boFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.bo-panel .studio-canvas,.bo-panel .planner{margin-top:0}
+/* email illustration */
+.email-illu{display:grid;grid-template-columns:1.35fr 1fr;gap:22px;align-items:center;max-width:860px;margin:8px auto 0}
+.em-mail{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 12px 32px -18px rgba(0,0,0,.16)}
+.em-head{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line);font-size:12px;color:var(--gray)}
+.em-head b{color:var(--ink)}
+.em-sent{display:inline-flex;align-items:center;gap:4px;background:#E7F6EC;color:#15803D;border-radius:999px;padding:3px 9px;font-size:10px;font-weight:700}
+.em-subject{padding:14px 16px 8px;font-weight:600;font-size:14px;color:var(--ink)}
+.em-body{padding:0 16px 16px}
+.em-img{height:88px;border-radius:8px;background:linear-gradient(135deg,#ece6da,#dccfbd);margin-bottom:11px}
+.em-line{height:7px;background:var(--line);border-radius:4px;margin-bottom:7px}
+.em-line.short{width:55%}
+.em-btn{display:inline-block;margin-top:8px;background:var(--black);color:#fff;border-radius:8px;padding:9px 15px;font-size:11px;font-weight:600}
+.em-stats{display:flex;flex-direction:column;gap:12px}
+.em-stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 16px;display:flex;align-items:baseline;justify-content:space-between}
+.em-stat b{font-family:var(--title);font-weight:700;font-size:24px;color:var(--ink)}
+.em-stat span{font-size:12px;color:var(--gray)}
+/* analytics illustration */
+.analytics-illu{display:grid;grid-template-columns:1fr 1.55fr;gap:22px;align-items:stretch;max-width:900px;margin:8px auto 0}
+.an-metrics{display:flex;flex-direction:column;gap:12px}
+.an-metric{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;flex:1;display:flex;flex-direction:column;justify-content:center}
+.an-metric span{font-size:11px;color:var(--gray);margin-bottom:4px}
+.an-metric b{font-family:var(--title);font-weight:700;font-size:26px;color:var(--ink);line-height:1}
+.an-chart{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column}
+.an-ctitle{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:16px}
+.an-bars{flex:1;display:flex;align-items:flex-end;gap:14px;min-height:150px}
+.an-bcol{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.an-bar{width:100%;max-width:34px;border-radius:6px 6px 0 0;background:linear-gradient(180deg,#3a3a3e,#17171a);height:0}
+.bo-panel.active .an-bar{animation:anGrow .9s cubic-bezier(.2,.8,.3,1) forwards}
+@keyframes anGrow{to{height:var(--h)}}
+.an-blab{font-size:9px;color:var(--gray);margin-top:8px;text-align:center;white-space:nowrap}
+/* go-live leads */
+.gl-browser{width:200px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 8px 22px rgba(0,0,0,.08)}
+.gl-btop{display:flex;gap:4px;padding:8px 10px;background:#F6F5F2;border-bottom:1px solid var(--line)}
+.gl-btop i{width:6px;height:6px;border-radius:50%;background:#D7D5CF}
+.gl-bbody{height:96px;background:linear-gradient(135deg,#ece6da,#dccfbd);position:relative}
+.gl-bwidget{position:absolute;right:10px;bottom:10px;background:var(--black);color:#fff;font-size:8px;font-weight:600;padding:5px 9px;border-radius:6px}
+.gl-leadbox{width:210px}
+.gl-leadcount{font-size:12px;color:var(--gray);font-weight:500;margin-bottom:10px}
+.gl-leadcount b{font-family:var(--title);font-weight:700;font-size:17px;color:var(--ink)}
+.gl-lead{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:9px;padding:8px 10px;font-size:10.5px;color:var(--ink);margin-bottom:7px;box-shadow:0 2px 6px rgba(0,0,0,.04);opacity:0;transform:translateY(8px);animation:glLeadIn .5s ease forwards}
+.gl-lead i{width:16px;height:16px;border-radius:50%;background:#16A34A;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.gl-lead i svg{width:9px;height:9px;stroke:#fff;fill:none;stroke-width:2.4}
+@keyframes glLeadIn{to{opacity:1;transform:none}}
+#glGen{animation:glBtn 3.6s ease-in-out infinite}
+@keyframes glBtn{0%,86%,100%{transform:none}90%{transform:scale(.92)}94%{transform:none}}
+#glSeam{animation:glSeamFx 3.6s ease-in-out infinite}
+@keyframes glSeamFx{0%,88%,100%{filter:none}92%{filter:brightness(1.14) saturate(1.08)}}
+@media(prefers-reduced-motion:reduce){.gl-dot,#glGen,#glSeam,.gl-sw,.gl-lead,.sg-tile,.sg-gen,.pl-post{animation:none!important;opacity:1!important;transform:none!important}}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:40px}
+.ba .ph{aspect-ratio:4/3;position:relative}
+.ba-tag{position:absolute;top:12px;left:12px;background:#fff;color:var(--ink);font-size:10px;letter-spacing:.12em;padding:5px 11px;border-radius:999px;font-weight:700}
+.gen-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:36px}
+.icowrap{width:44px;height:44px;border-radius:12px;background:#F2F1ED;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.icowrap svg{width:22px;height:22px;stroke:var(--ink);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+/* section head */
+.shead{max-width:640px}
+.shead .eyebrow{display:block;margin-bottom:14px}
+.shead h2 .dim{display:inline}
+.shead .lead{margin-top:16px}
+
+/* split feature */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:44px}
+.featlist{display:flex;flex-direction:column;gap:24px}
+.feat{display:flex;gap:16px}
+.feat .fn{font-size:12px;letter-spacing:.14em;color:var(--ink);font-weight:700;padding-top:3px;min-width:22px}
+.feat h3{font-size:18px}
+.feat p{font-size:14px;margin-top:4px}
+
+/* pricing */
+.prices{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px;align-items:stretch}
+.price{background:#fff;border:1px solid var(--line);border-radius:18px;padding:34px 30px;display:flex;flex-direction:column}
+.price.feat{background:var(--black);color:#fff;border-color:var(--black)}
+.price .ptier{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gray);font-weight:600}
+.price.feat .ptier{color:#9A9AA0}
+.price .pcap{font-size:14px;color:var(--gray);margin-top:10px}
+.price.feat .pcap{color:#BdBdC2}
+.price .amt{font-family:var(--title);font-weight:700;font-size:46px;margin-top:22px;letter-spacing:-.02em}
+.price .amt small{font-size:20px;font-weight:600}
+.price .per{font-size:13px;color:var(--gray);margin-top:2px}
+.price.feat .per{color:#9A9AA0}
+.price .pdiv{height:1px;background:var(--line);margin:22px 0 16px}
+.price.feat .pdiv{background:rgba(255,255,255,.16)}
+.price .pcred{font-size:13px;font-weight:600}
+.price .badge{align-self:flex-start;background:#fff;color:var(--black);font-size:10px;letter-spacing:.16em;font-weight:700;padding:5px 12px;border-radius:999px;margin-bottom:14px}
+.addcred{text-align:center;margin-top:26px;font-size:13px;color:var(--gray)}
+.addcred b{color:var(--ink)}
+
+/* CTA / form */
+/* TODO: for a room-render background, replace `background` below with:
+   background:linear-gradient(rgba(15,15,17,.84),rgba(15,15,17,.94)), url('assets/cta-bg.jpg') center/cover; */
+.cta{position:relative;overflow:hidden;color:#fff;background:var(--black)}
+.cta-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 62%;z-index:0;transform:scale(1.32);transform-origin:center 70%}
+.cta::after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(15,15,17,.8) 0%,rgba(15,15,17,.5) 100%);z-index:1}
+.cta>.wrap{position:relative;z-index:2}
+.cta h2,.cta .lead{text-shadow:0 2px 16px rgba(0,0,0,.55)}
+.cta h2{color:#fff}
+.cta .lead{color:#B9B9BE}
+.form-card{background:#fff;color:var(--ink);border-radius:20px;padding:34px;max-width:520px;margin:36px auto 0}
+.form-row{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;text-align:left}
+.form-row label{font-size:13px;font-weight:600}
+.form-row input,.form-row select{font-family:var(--body);font-size:15px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+.form-row input:focus,.form-row select:focus{outline:none;border-color:var(--ink)}
+.form-card .btn{width:100%;justify-content:center;margin-top:6px}
+.form-note{font-size:12px;color:var(--faint);text-align:center;margin-top:14px}
+.form-success{display:none;text-align:center;padding:20px 0}
+.form-success.show{display:block}
+.form-success h3{font-size:22px;color:#fff}
+.form-success p{margin-top:8px;font-size:14px;color:rgba(255,255,255,.82)}
+
+/* footer */
+.footer{padding:54px 0;border-top:1px solid var(--line)}
+.footer-grid{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.footer .logo{height:24px}
+.footer .fcontact{display:flex;gap:30px;font-size:14px;color:var(--gray);flex-wrap:wrap}
+.footer .fcontact b{color:var(--ink);font-weight:600}
+.copy{margin-top:24px;font-size:12px;color:var(--faint)}
+
+/* sticky mobile cta */
+.mcta{display:none}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.card:hover,.window:hover{transform:none}.chip{opacity:1;animation:none}.viz .play span::before,.viz .play span::after{animation:none}}
+
+/* responsive */
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:36px}
+  .split{grid-template-columns:1fr;gap:32px}
+  .prices{grid-template-columns:1fr;max-width:440px;margin-left:auto;margin-right:auto}
+  .grid3{grid-template-columns:1fr;max-width:440px;margin-left:auto;margin-right:auto}
+  .grid2{grid-template-columns:1fr;max-width:440px;margin-left:auto;margin-right:auto}
+  .ba{grid-template-columns:1fr}
+  .gen-grid{grid-template-columns:repeat(2,1fr)}
+  .studio-feats{grid-template-columns:1fr;max-width:440px;margin-left:auto;margin-right:auto}
+  .bo-tabs{grid-template-columns:repeat(2,1fr)}
+  .email-illu,.analytics-illu{grid-template-columns:1fr}
+  .nav-links{display:none}
+}
+@media(max-width:600px){
+  .section{padding:60px 0}
+  .hero{padding:40px 0 56px}
+  .studio-canvas{aspect-ratio:4/3}
+  .mcta{display:block;position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:12px 16px}
+  .mcta .btn{width:100%;justify-content:center}
+  .nav .btn{display:none}
+  body{padding-bottom:74px}
+  .footer-grid{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="cobrand">
+      <img class="logo" src="assets/ardealy_logo.png" alt="ARdealy">
+      <span class="cobrand-x" id="cobrandX">&times;</span>
+      <!-- Co-branding, personalized per lead via ?d=<domain> (see personalization script). -->
+      <img class="lead-logo-img" id="leadLogoNav" alt="" style="display:none">
+      <span class="lead-logo" id="leadLogoNavText">Client logo</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#platform">Platform</a>
+    </nav>
+    <a href="#access" class="btn btn-dark">Book a demo</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <span class="pill">For flooring brands</span>
+      <h1>They see it at home.<br><span class="dim">You sell more.</span></h1>
+      <p class="lead">Let customers visualize your floors in their own space. ARdealy turns that moment into a captured lead, and into marketing that sells, all from one platform.</p>
+      <div class="hero-cta">
+        <a href="#access" class="btn btn-dark btn-lg">Book a demo</a>
+        <a href="#how" class="btn btn-ghost btn-lg">See how it works</a>
+      </div>
+      <div class="specs">
+        <span><b>3-second</b> renders</span>
+        <span><b>4K</b> quality</span>
+        <span><b>Any device</b>, no app</span>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="window">
+        <div class="window-bar"><span class="dotr"></span><span class="dotr"></span><span class="dotr"></span><span class="window-url" id="heroUrl">yourbrand.com</span></div>
+        <div class="hero-media">
+          <!-- TODO: swap for a dedicated HD room render. File: assets/hero-render.png -->
+          <img src="assets/hero-render.png" alt="A floor visualized in a real room">
+          <div class="chip chip-swatch">
+            <img src="assets/swatch.png" alt="">
+            <div><b>Lamina 832 V4</b><span>Applied to floor</span></div>
+          </div>
+          <div class="chip-feed">
+            <div class="chip chip-lead">
+              <span class="chip-ic"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span>
+              <div><b>New lead captured</b><span>sophie.m@gmail.com</span></div>
+            </div>
+            <div class="chip chip-order">
+              <span class="chip-ic"><svg viewBox="0 0 24 24"><path d="M6 7h13l-1.2 10.6a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 7z"/><path d="M9 7V5.6a3 3 0 0 1 6 0V7"/></svg></span>
+              <div><b>New order</b><span>Lamina 832 V4</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="section soft" id="problem">
+  <div class="wrap">
+    <div class="split">
+      <div class="shead reveal">
+        <span class="eyebrow">The problem</span>
+        <h2>A single sample plank.<br><span class="dim">A whole-room decision.</span></h2>
+        <p class="lead">Asking customers to commit to a floor from a tiny sample is asking them to gamble. Most won't: they hesitate, they leave, and you never hear from them again.</p>
+      </div>
+      <img class="prob-photo reveal" src="assets/sample-in-hand.png" alt="A customer holding a single oak flooring sample plank in an empty room">
+    </div>
+    <div class="grid3">
+      <div class="card reveal"><div class="num">01</div><div class="aline"></div><div class="tag">The walk-out</div><h3>&ldquo;I'll think about it.&rdquo;</h3><p>They loved the sample, but couldn't picture how it fills their whole room. So they leave to think it over, and you both know how that ends.</p></div>
+      <div class="card reveal"><div class="num">02</div><div class="aline"></div><div class="tag">The ghost</div><h3>Gone without a name</h3><p>Someone browsed your range for twenty minutes, then vanished. No email, no way to reach them. Your warmest leads slip away every day.</p></div>
+      <div class="card reveal"><div class="num">03</div><div class="aline"></div><div class="tag">The grind</div><h3>Marketing eats your nights</h3><p>Photos to edit, captions to write, ads to run. Selling your whole range online never stops, and it all lands on you.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION / HOW -->
+<section class="section" id="how">
+  <div class="wrap">
+    <div class="shead reveal">
+      <span class="eyebrow">The solution</span>
+      <h2>From photo to render,<br><span class="dim">in three seconds.</span></h2>
+      <p class="lead">Your customer sees your floors in their own room, instantly. No app, no friction, on your website and in your showroom.</p>
+    </div>
+    <!-- TODO: replace with a real before/after pair (landscape ~4:3 each). Files: assets/before.jpg, assets/after.jpg -->
+    <!-- BEFORE / AFTER slider. TODO: replace the two .ph placeholders with real images:
+         <img class="ba-fill" src="assets/after.jpg">  and  <img class="ba-fill" src="assets/before.jpg"> -->
+    <div class="ba-slider reveal" id="baSlider">
+      <div class="ba-after">
+        <img class="ba-fill" src="assets/after.jpg" alt="Floor option shown in the room">
+        <span class="ba-lab r">After</span>
+      </div>
+      <div class="ba-before" id="baBefore">
+        <img class="ba-fill" src="assets/before.jpeg" alt="Original floor in the room">
+        <span class="ba-lab l">Before</span>
+      </div>
+      <div class="ba-handle" id="baHandle"><div class="ba-knob"><svg width="17" height="11" viewBox="0 0 17 11" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 1L1.5 5.5 5.5 10M11.5 1l4 4.5-4 4.5"/></svg></div></div>
+    </div>
+    <!-- visualizer moved to the "Right where the decision happens" section -->
+  </div>
+</section>
+
+<!-- LIFESTYLE -->
+<section class="section">
+  <div class="wrap center">
+    <span class="eyebrow reveal" style="display:block;margin-bottom:14px">In the room, in the showroom</span>
+    <h2 class="reveal">Right where the decision happens.</h2>
+    <p class="lead reveal" style="margin:16px auto 0">On their phone at home, or on a tablet in your showroom, your customers try your floors exactly where they'll live with them.</p>
+    <!-- LIVE VISUALIZER (interactive demo) -->
+    <div class="vizwrap reveal">
+      <div class="window">
+        <div class="window-bar"><span class="dotr"></span><span class="dotr"></span><span class="dotr"></span><span class="window-url" id="vizUrl">visualizer.clientbrand.com</span></div>
+        <div class="viz viz-lg">
+          <!-- co-branding overlay, personalized per lead via ?d=<domain> -->
+          <img class="viz-logo-img" id="leadLogoViz" alt="" style="display:none">
+          <div class="viz-logo" id="leadLogoVizText">Client logo</div>
+          <!-- TODO: replace the fallback image with your live visualizer embed:
+               <iframe src="https://YOUR-ARDEALY-VISUALIZER-EMBED-URL" allowfullscreen></iframe> -->
+          <img class="fallback" src="assets/visualizer.png" alt="ARdealy live visualizer">
+          <a href="#" class="play" data-ardealy-visualizer><span>&#9658;&nbsp; Try the live visualizer</span></a>
+        </div>
+      </div>
+      <div class="vizsteps">
+        <span><b>01</b>Capture their room</span>
+        <span><b>02</b>Try your products</span>
+        <span><b>03</b>Buy with confidence</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GO LIVE -->
+<section class="section soft" id="golive">
+  <div class="wrap">
+    <div class="shead reveal">
+      <span class="eyebrow">Go live</span>
+      <h2>Live in days, <span class="dim">not months.</span></h2>
+      <p class="lead">No heavy IT project, no developer required. Import your catalog yourself or let our team do it, and your visualizer goes live, ready to sell.</p>
+    </div>
+    <div class="grid3" id="goliveTabs">
+      <div class="card golive-tab active reveal" data-tab="import"><div class="num">01</div><div class="aline"></div><div class="tag">Import</div><h3>Your catalog, your way</h3><p>Upload your products yourself in a few clicks with bulk import, or hand it to our team. Either way, you're set up fast.</p></div>
+      <div class="card golive-tab reveal" data-tab="customize"><div class="num">02</div><div class="aline"></div><div class="tag">Customize</div><h3>Make it yours</h3><p>Your visualizer matches your brand and sits natively on your product pages. Textures, patterns and scales handled automatically.</p></div>
+      <div class="card golive-tab reveal" data-tab="golive"><div class="num">03</div><div class="aline"></div><div class="tag">Go live</div><h3>Start selling</h3><p>Customers begin visualizing your floors at home, and you begin capturing leads, in a matter of days.</p></div>
+    </div>
+    <!-- interactive screen: changes with the hovered/clicked card above.
+         TODO replace each placeholder with a real screenshot:
+         import -> assets/golive-import.png  |  customize -> assets/golive-customize.png  |  golive -> assets/golive-live.png -->
+    <div class="golive-screen reveal">
+      <div class="golive-panels">
+
+        <!-- IMPORT -->
+        <div class="golive-panel active" data-panel="import">
+          <div class="gl">
+            <div class="gl-col">
+              <div class="gl-step">Step 1 &mdash; Import</div>
+              <div class="gl-badge"><span class="gl-dot"></span><b id="glCount">12</b>&nbsp;products ready</div>
+              <div class="gl-srcs">
+                <div class="gl-src"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>CSV</div>
+                <div class="gl-src"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 4v16M4 9.5h16"/></svg>Excel</div>
+                <div class="gl-src"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Manual</div>
+                <div class="gl-src"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3.5 12h17M12 3c2.4 2.6 2.4 15.4 0 18M12 3c-2.4 2.6-2.4 15.4 0 18"/></svg>API</div>
+              </div>
+            </div>
+            <div class="gl-arrow">&rarr;</div>
+            <div class="gl-col">
+              <div class="gl-step">Step 2 &mdash; Upload images</div>
+              <div class="gl-gen">
+                <div class="gl-genrow"><span class="gl-input">oak_wood_sample.jpg</span><button class="gl-genbtn" id="glGen">Upload</button></div>
+                <div class="gl-tiles">
+                  <div class="gl-tile" style="background:repeating-linear-gradient(18deg,#cda478,#cda478 6px,#c0986a 6px,#c0986a 12px)"><span class="gl-tlab">Image</span></div>
+                  <span class="gl-arrow" style="font-size:15px">&rarr;</span>
+                  <div class="gl-tile" id="glSeam" style="background:repeating-linear-gradient(18deg,#d2ab80,#d2ab80 11px,#c7a072 11px,#c7a072 22px)"><span class="gl-tlab gl-tlab-g">&#10003;&nbsp;Uploaded</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="gl-arrow">&rarr;</div>
+            <div class="gl-col">
+              <div class="gl-step">Step 3 &mdash; Ready to use</div>
+              <div class="gl-swatches">
+                <div class="gl-sw" style="--sw:repeating-linear-gradient(20deg,#dbc09a,#dbc09a 5px,#cfb086 5px,#cfb086 10px);animation-delay:.05s"></div>
+                <div class="gl-sw" style="--sw:repeating-linear-gradient(20deg,#b5734a,#b5734a 5px,#a8683f 5px,#a8683f 10px);animation-delay:.13s"></div>
+                <div class="gl-sw" style="--sw:repeating-linear-gradient(20deg,#cba47a,#cba47a 5px,#bf9870 5px,#bf9870 10px);animation-delay:.21s"></div>
+                <div class="gl-sw" style="--sw:repeating-linear-gradient(20deg,#7d5538,#7d5538 5px,#6e4a30 5px,#6e4a30 10px);animation-delay:.29s"></div>
+                <div class="gl-sw" style="--sw:repeating-linear-gradient(20deg,#b6a892,#b6a892 5px,#a89a85 5px,#a89a85 10px);animation-delay:.37s"></div>
+                <div class="gl-sw" style="--sw:repeating-linear-gradient(20deg,#d2a86f,#d2a86f 5px,#c79c63 5px,#c79c63 10px);animation-delay:.45s"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CUSTOMIZE -->
+        <div class="golive-panel" data-panel="customize">
+          <div class="gl">
+            <div class="gl-col">
+              <div class="gl-step">Your brand settings</div>
+              <div class="gl-settings">
+                <div class="gl-srow"><span class="gl-slabel">Logo</span><span class="gl-logoslot2">Client logo</span></div>
+                <div class="gl-srow"><span class="gl-slabel">Primary color</span><span class="gl-cfield"><span class="gl-cdot" id="glCDot"></span><span id="glCHex">#07598B</span></span></div>
+                <div class="gl-srow"><span class="gl-slabel">Corner radius</span><span class="gl-slider2"><span class="gl-strack"><span class="gl-sfill" id="glRFill"></span><span class="gl-sknob" id="glRKnob"></span></span><span id="glRVal">8px</span></span></div>
+              </div>
+            </div>
+            <div class="gl-arrow">&rarr;</div>
+            <div class="gl-col">
+              <div class="gl-step">Live preview</div>
+              <div class="gl-preview" id="glPrev">
+                <span class="gl-pnew">New</span>
+                <div class="gl-pimg"></div>
+                <div class="gl-pline"></div>
+                <button class="gl-pbtn" id="glPbtn">Add to wishlist</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- GO LIVE -->
+        <div class="golive-panel" data-panel="golive">
+          <div class="gl">
+            <div class="gl-col">
+              <div class="gl-step">Live on your site</div>
+              <div class="gl-browser">
+                <div class="gl-btop"><i></i><i></i><i></i></div>
+                <div class="gl-bbody"><span class="gl-bwidget">&#9658;&nbsp;Visualizer</span></div>
+              </div>
+            </div>
+            <div class="gl-arrow">&rarr;</div>
+            <div class="gl-col">
+              <div class="gl-step">Leads captured</div>
+              <div class="gl-leadbox">
+                <div class="gl-leadcount"><b id="glLeads">18</b> leads today</div>
+                <div class="gl-leadlist">
+                  <div class="gl-lead" style="animation-delay:.15s"><i><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4L19 7"/></svg></i>sophie.m@gmail.com</div>
+                  <div class="gl-lead" style="animation-delay:.6s"><i><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4L19 7"/></svg></i>marc.d@outlook.com</div>
+                  <div class="gl-lead" style="animation-delay:1.05s"><i><svg viewBox="0 0 24 24"><path d="M5 12.5l4 4L19 7"/></svg></i>lena.k@yahoo.com</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORM (back-office, tabbed) -->
+<section class="section" id="platform">
+  <div class="wrap">
+    <div class="shead center reveal" style="margin:0 auto">
+      <span class="eyebrow" style="display:block;margin-bottom:14px">The platform</span>
+      <h2>Your whole marketing engine,<br><span class="dim">in one back-office.</span></h2>
+      <p class="lead">Generate content, schedule it, send your campaigns, and see what converts. All in one place. Hover a module to see it in action.</p>
+    </div>
+    <div class="bo-tabs" id="boTabs">
+      <div class="card bo-tab active" data-tab="studio"><div class="icowrap"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="10" r="1.6"/><path d="M21 15l-5-4-8 7"/></svg></div><div class="tag">Content Studio</div><h3>Visuals &amp; videos</h3></div>
+      <div class="card bo-tab" data-tab="planner"><div class="icowrap"><svg viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg></div><div class="tag">Social Planner</div><h3>Schedule everywhere</h3></div>
+      <div class="card bo-tab" data-tab="email"><div class="icowrap"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/></svg></div><div class="tag">Email Marketing</div><h3>Follow up &amp; sell</h3></div>
+      <div class="card bo-tab" data-tab="analytics"><div class="icowrap"><svg viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M6 20v-6M11 20V7M16 20v-9"/></svg></div><div class="tag">Analytics</div><h3>See what converts</h3></div>
+    </div>
+    <div class="bo-screen">
+      <div class="bo-panel active" data-panel="studio">
+        <div class="studio-canvas" id="studioCanvas">
+          <img class="sc-scene" src="assets/studio/pick.png" alt="Pick a product">
+          <img class="sc-scene" src="assets/studio/recipe.png" alt="Choose a recipe">
+          <img class="sc-scene" src="assets/studio/flow.png" alt="Generate visuals">
+          <img class="sc-scene" src="assets/studio/genvideo.png" alt="Turn it into a video">
+          <video class="sc-scene sc-video" src="assets/studio/image-to-video.webm" muted loop playsinline preload="auto"></video>
+          <div class="sc-cap"><span class="sc-step">01</span><span id="scLabel">Pick a product</span></div>
+        </div>
+      </div>
+      <div class="bo-panel" data-panel="planner">
+        <div class="planner" id="planner">
+          <div class="pl-top"><b>Social planner</b><span class="pl-week">This week</span><span class="pl-chips"><i class="ig"></i><i class="fb"></i><i class="pin"></i><i class="tt"></i></span></div>
+          <div class="pl-grid">
+            <div class="pl-day"><span class="pl-d">Mon</span><div class="pl-post" style="background-image:url(assets/planner/pl1.jpg);animation-delay:.05s"><span class="pl-ch ig"></span><span class="pl-time">9:00</span></div></div>
+            <div class="pl-day"><span class="pl-d">Tue</span><div class="pl-post" style="background-image:url(assets/planner/pl2.jpg);animation-delay:.15s"><span class="pl-ch pin"></span><span class="pl-time">11:30</span></div><div class="pl-post" style="background-image:url(assets/planner/pl3.jpg);animation-delay:.25s"><span class="pl-ch fb"></span><span class="pl-time">17:00</span></div></div>
+            <div class="pl-day"><span class="pl-d">Wed</span><div class="pl-post" style="background-image:url(assets/planner/pl4.jpg);animation-delay:.35s"><span class="pl-ch tt"></span><span class="pl-time">12:00</span></div></div>
+            <div class="pl-day"><span class="pl-d">Thu</span><div class="pl-post" style="background-image:url(assets/planner/pl5.jpg);animation-delay:.45s"><span class="pl-ch ig"></span><span class="pl-time">10:00</span></div></div>
+            <div class="pl-day"><span class="pl-d">Fri</span><div class="pl-post" style="background-image:url(assets/planner/pl6.jpg);animation-delay:.55s"><span class="pl-ch pin"></span><span class="pl-time">15:00</span></div><div class="pl-post" style="background-image:url(assets/planner/pl7.jpg);animation-delay:.65s"><span class="pl-ch fb"></span><span class="pl-time">18:30</span></div></div>
+            <div class="pl-day"><span class="pl-d">Sat</span><div class="pl-post" style="background-image:url(assets/planner/pl8.jpg);animation-delay:.75s"><span class="pl-ch ig"></span><span class="pl-time">11:00</span></div></div>
+            <div class="pl-day"><span class="pl-d">Sun</span><div class="pl-post" style="background-image:url(assets/planner/pl9.jpg);animation-delay:.85s"><span class="pl-ch tt"></span><span class="pl-time">16:00</span></div></div>
+          </div>
+          <div class="pl-foot"><b id="plCount">9</b> posts scheduled this week &middot; auto-published across channels</div>
+        </div>
+      </div>
+      <div class="bo-panel" data-panel="email">
+        <div class="email-illu">
+          <div class="em-mail">
+            <div class="em-head"><span>To: <b>1,240 contacts</b></span><span class="em-sent">&#10003; Sent</span></div>
+            <div class="em-subject">New oak floors just landed</div>
+            <div class="em-body"><div class="em-img"></div><div class="em-line"></div><div class="em-line short"></div><span class="em-btn">Shop the collection</span></div>
+          </div>
+          <div class="em-stats">
+            <div class="em-stat"><b id="emDeliv">1,240</b><span>delivered</span></div>
+            <div class="em-stat"><b id="emOpen">486</b><span>opened</span></div>
+            <div class="em-stat"><b id="emClick">92</b><span>clicked</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="bo-panel" data-panel="analytics">
+        <div class="analytics-illu">
+          <div class="an-metrics">
+            <div class="an-metric"><span>Visitors</span><b id="anV">4,820</b></div>
+            <div class="an-metric"><span>Leads captured</span><b id="anL">312</b></div>
+            <div class="an-metric"><span>Conversions</span><b id="anC">47</b></div>
+          </div>
+          <div class="an-chart">
+            <div class="an-ctitle">Most-configured products</div>
+            <div class="an-bars">
+              <div class="an-bcol"><span class="an-bar" style="--h:88%"></span><span class="an-blab">Lamina 832</span></div>
+              <div class="an-bcol"><span class="an-bar" style="--h:64%"></span><span class="an-blab">Atlantic 10</span></div>
+              <div class="an-bcol"><span class="an-bar" style="--h:73%"></span><span class="an-blab">Altitude 12</span></div>
+              <div class="an-bcol"><span class="an-bar" style="--h:46%"></span><span class="an-blab">Organic Cork</span></div>
+              <div class="an-bcol"><span class="an-bar" style="--h:58%"></span><span class="an-blab">Lamina 731</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- CTA / ACCESS FORM -->
+<section class="section cta" id="access">
+  <img class="cta-bg" src="assets/cta-bg.jpg" alt="">
+  <div class="wrap center">
+    <div class="reveal">
+      <h2>Let's make your floors<br><span class="dim">sell themselves.</span></h2>
+      <p class="lead" style="margin-top:26px">Book a demo and we'll set you up on your own catalog, then show you ARdealy live.</p>
+    </div>
+    <!-- Web3Forms: get a free access key at https://web3forms.com (enter hello@ardealy.com), then paste it into access_key below. -->
+    <form class="form-card reveal" id="accessForm" action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="dbd5172f-d016-4a7d-8afb-a2d12cdfe8be">
+      <input type="hidden" name="subject" value="New demo request from the ARdealy landing">
+      <input type="hidden" name="from_name" value="ARdealy Landing">
+      <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none!important">
+      <div class="form-row"><label for="name">Name</label><input id="name" name="name" type="text" required placeholder="Your name"></div>
+      <div class="form-row"><label for="email">Work email</label><input id="email" name="email" type="email" required placeholder="you@yourbrand.com"></div>
+      <div class="form-row"><label for="website">Website</label><input id="website" name="website" type="text" required placeholder="yourbrand.com"></div>
+      <div class="form-row"><label for="catalog">Catalog size</label>
+        <select id="catalog" name="catalog">
+          <option>Up to 500 products</option>
+          <option>500 – 1,500 products</option>
+          <option>1,500+ products</option>
+        </select>
+      </div>
+      <button class="btn btn-dark btn-lg" type="submit">Book a demo</button>
+      <p class="form-note">No commitment. We'll reply within one business day.</p>
+    </form>
+    <div class="form-success" id="formSuccess">
+      <h3>Thanks! Your demo request is in.</h3>
+      <p>We'll reach out within one business day to schedule it on your own catalog.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <img class="logo" src="assets/ardealy_logo.png" alt="ARdealy">
+      <div class="fcontact">
+        <span><b>Zouhair EL GHRABI</b></span>
+        <span>zouhair@ardealy.com</span>
+        <span>+33 7 54 29 14 90</span>
+      </div>
+    </div>
+    <p class="copy">&copy; 2026 ARdealy &middot; The AI growth platform for interior brands &middot; ardealy.com</p>
+  </div>
+</footer>
+
+<!-- sticky mobile CTA -->
+<div class="mcta"><a href="#access" class="btn btn-dark">Book a demo</a></div>
+
+<script>
+/* ===== PER-LEAD PERSONALIZATION ====================================================
+   Append ?d=<company-domain> to the URL to co-brand the page for a specific lead.
+     ?d=anitra.lv                      → logo + visualizer.anitra.lv
+     ?d=anitra.lv&name=Anitra          → name shown next to the logo / monogram
+     ?logo=https://.../logo.png        → explicit logo URL (overrides auto-fetch)
+   Logo source: logo.dev (real HD logos by domain) → clean monogram fallback (never pixelated).
+   ▶ Paste your free logo.dev publishable token (pk_...) into LOGODEV_TOKEN below to turn on
+     real logos. Until then, every lead shows a tidy monogram + name.
+   No params  → clean generic page (ARdealy only, no client badge).
+==================================================================================== */
+(function(){
+  var LOGODEV_TOKEN='pk_K9-ouOUrRE-17yisYXX3LQ'; /* logo.dev publishable token (public, client-side safe) */
+  var q=new URLSearchParams(location.search);
+  var g=function(k){return (q.get(k)||'').trim();};
+  var domain=(g('d')||g('domain')).toLowerCase().replace(/^https?:\/\//,'').replace(/^www\./,'').replace(/\/.*$/,'');
+  var name=g('name')||g('company')||g('c');
+  var logoOverride=g('logo');
+  var personalized=!!(domain||name||logoOverride);
+  var navX=document.getElementById('cobrandX'),
+      navImg=document.getElementById('leadLogoNav'), navTxt=document.getElementById('leadLogoNavText'),
+      vizImg=document.getElementById('leadLogoViz'), vizTxt=document.getElementById('leadLogoVizText'),
+      heroUrl=document.getElementById('heroUrl'), vizUrl=document.getElementById('vizUrl');
+  if(!personalized){ [navX,navTxt,vizTxt].forEach(function(el){if(el)el.style.display='none';}); return; }
+  if(domain){ if(vizUrl)vizUrl.textContent='visualizer.'+domain; if(heroUrl)heroUrl.textContent=domain; }
+  if(!name && domain){ var b=domain.split('.')[0]; name=b.charAt(0).toUpperCase()+b.slice(1); } /* anitra.lv → Anitra */
+  var label=name||domain||'';
+  function initials(s){var p=(s||'').replace(/[^\p{L}\p{N} ]/gu,' ').trim().split(/\s+/).filter(Boolean);if(!p.length)return '?';return (p.length===1?p[0].slice(0,2):p[0][0]+p[1][0]).toUpperCase();}
+  function hue(s){var h=0;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))%360;return h;}
+  function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function showId(txt){ if(!txt)return; txt.classList.add('filled'); txt.style.display='';
+    txt.innerHTML='<span class="lead-mono" style="background:hsl('+hue(label||'x')+',48%,42%)">'+esc(initials(label))+'</span><span class="lead-name">'+esc(label)+'</span>'; }
+  var hasToken=LOGODEV_TOKEN.indexOf('pk_')===0 && LOGODEV_TOKEN!=='pk_XXXX';
+  var logoUrl = logoOverride || (domain && hasToken
+      ? 'https://img.logo.dev/'+domain+'?token='+encodeURIComponent(LOGODEV_TOKEN)+'&size=256&format=png&retina=true&fallback=404'
+      : '');
+  function setImg(img,txt,src){ if(!img||!txt)return;
+    img.onload=function(){ img.style.display=''; txt.style.display='none'; };
+    img.onerror=function(){ showId(txt); };
+    img.src=src; }
+  function monoBoth(){ showId(navTxt); showId(vizTxt); }
+  /* Load the logo once, trim its transparent padding via canvas so square-padded wordmarks
+     don't render tiny, then reuse the trimmed result for both badges. */
+  function loadTrimmed(url,done){
+    var im=new Image(); im.crossOrigin='anonymous';
+    im.onload=function(){
+      try{
+        var w=im.naturalWidth,h=im.naturalHeight; if(!w||!h){ done(url); return; }
+        var c=document.createElement('canvas'); c.width=w; c.height=h;
+        var ctx=c.getContext('2d'); ctx.drawImage(im,0,0);
+        var d=ctx.getImageData(0,0,w,h).data, minx=w,miny=h,maxx=0,maxy=0,seen=false;
+        for(var y=0;y<h;y++)for(var x=0;x<w;x++){ if(d[(y*w+x)*4+3]>16){seen=true; if(x<minx)minx=x; if(x>maxx)maxx=x; if(y<miny)miny=y; if(y>maxy)maxy=y;} }
+        if(!seen){ done(url); return; }
+        var pad=Math.round(Math.max(maxx-minx,maxy-miny)*0.04);
+        minx=Math.max(0,minx-pad); miny=Math.max(0,miny-pad); maxx=Math.min(w-1,maxx+pad); maxy=Math.min(h-1,maxy+pad);
+        var cw=maxx-minx+1, ch=maxy-miny+1;
+        var c2=document.createElement('canvas'); c2.width=cw; c2.height=ch;
+        c2.getContext('2d').drawImage(im,minx,miny,cw,ch,0,0,cw,ch);
+        done(c2.toDataURL('image/png'));
+      }catch(e){ done(url); } /* tainted canvas → use original */
+    };
+    im.onerror=function(){ done(null); }; /* 404 / load fail → monogram */
+    im.src=url;
+  }
+  /* expose the lead's brand so the visualizer overlay can co-brand its loading screen */
+  window.__lead={logo:null,name:label,ini:initials(label),hue:hue(label||'x'),domain:domain};
+  monoBoth(); /* render the monogram synchronously first -> the "Client logo" placeholder never flashes */
+  if(logoUrl){ loadTrimmed(logoUrl,function(res){ if(res){ window.__lead.logo=res; setImg(navImg,navTxt,res); setImg(vizImg,vizTxt,res); } }); }
+})();
+
+// scroll reveal
+// stagger reveal of grid children
+document.querySelectorAll('.grid3,.grid2,.prices').forEach(g=>{
+  [...g.children].forEach((c,i)=>{ if(c.classList.contains('reveal')) c.style.transitionDelay=(i*0.08)+'s'; });
+});
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+// nav shadow on scroll
+const navEl=document.querySelector('.nav');
+addEventListener('scroll',()=>{navEl.classList.toggle('scrolled',scrollY>8)},{passive:true});
+
+// form: AJAX submit to Web3Forms -> emails hello@ardealy.com, then shows success state
+const form=document.getElementById('accessForm');
+form&&form.addEventListener('submit',async(ev)=>{
+  ev.preventDefault();
+  const key=(form.querySelector('[name=access_key]')||{}).value||'';
+  if(key.includes('YOUR_ACCESS_KEY')){showSuccess();return;} // demo mode until the key is set
+  const btn=form.querySelector('button[type=submit]'); const label=btn&&btn.textContent;
+  if(btn){btn.disabled=true;btn.textContent='Sending…';}
+  try{
+    const r=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
+    const data=await r.json().catch(()=>({}));
+    if(r.ok&&data.success){showSuccess();}
+    else{if(btn){btn.disabled=false;btn.textContent=label;} alert('Something went wrong. Please email hello@ardealy.com directly.');}
+  }catch(e){if(btn){btn.disabled=false;btn.textContent=label;} alert('Network error. Please email hello@ardealy.com directly.');}
+});
+function showSuccess(){form.style.display='none';document.getElementById('formSuccess').classList.add('show');}
+
+// before/after slider
+(function(){
+  const s=document.getElementById('baSlider'); if(!s) return;
+  const before=document.getElementById('baBefore'), handle=document.getElementById('baHandle');
+  let dragging=false, animated=false;
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function set(p,anim){
+    p=Math.max(2,Math.min(98,p));
+    before.style.transition=anim?'clip-path .9s cubic-bezier(.4,0,.2,1)':'none';
+    handle.style.transition=anim?'left .9s cubic-bezier(.4,0,.2,1)':'none';
+    before.style.clipPath='inset(0 '+(100-p)+'% 0 0)'; handle.style.left=p+'%';
+  }
+  set(50,false);
+  function px(e){const r=s.getBoundingClientRect();const cx=e.touches?e.touches[0].clientX:e.clientX;set((cx-r.left)/r.width*100,false);}
+  s.addEventListener('pointerdown',e=>{dragging=true;px(e);});
+  addEventListener('pointermove',e=>{if(dragging)px(e);});
+  addEventListener('pointerup',()=>dragging=false);
+  s.addEventListener('touchmove',e=>{if(dragging)px(e);},{passive:true});
+  if(reduce) return;
+  const io2=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting&&!animated){animated=true;
+    set(80,true); setTimeout(()=>set(20,true),950); setTimeout(()=>set(50,true),1900);
+    io2.unobserve(e.target);}})},{threshold:.4});
+  io2.observe(s);
+})();
+
+// go-live interactive tabs + illustrations
+(function(){
+  const wrap=document.getElementById('goliveTabs'); if(!wrap) return;
+  const tabs=wrap.querySelectorAll('.golive-tab');
+  const panels=document.querySelectorAll('.golive-panel');
+  function countTo(el,t,d){if(!el)return;let s=null;function f(x){if(!s)s=x;const p=Math.min((x-s)/d,1);el.textContent=Math.round(t*p);if(p<1)requestAnimationFrame(f);}requestAnimationFrame(f);}
+  let leadsDone=false;
+  function activate(k){
+    tabs.forEach(t=>t.classList.toggle('active',t.dataset.tab===k));
+    panels.forEach(p=>p.classList.toggle('active',p.dataset.panel===k));
+    if(k==='golive'&&!leadsDone){leadsDone=true;countTo(document.getElementById('glLeads'),18,1400);}
+  }
+  tabs.forEach(t=>{['mouseenter','click'].forEach(ev=>t.addEventListener(ev,()=>activate(t.dataset.tab)));});
+  // products-ready counter when the illustration scrolls into view
+  const cnt=document.getElementById('glCount'), screen=document.querySelector('.golive-screen');
+  if(cnt&&screen){const o=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){countTo(cnt,12,1200);o.disconnect();}})},{threshold:.35});o.observe(screen);}
+  // customize: branding presets cycle -> live preview
+  const prev=document.getElementById('glPrev');
+  if(prev){
+    const presets=[{c:'#07598B',r:8},{c:'#16A34A',r:14},{c:'#D97706',r:4},{c:'#111827',r:10}];
+    const cdot=document.getElementById('glCDot'),chex=document.getElementById('glCHex'),pbtn=document.getElementById('glPbtn'),rfill=document.getElementById('glRFill'),rknob=document.getElementById('glRKnob'),rval=document.getElementById('glRVal');
+    let i=0;
+    function apply(){const p=presets[i];cdot.style.background=p.c;chex.textContent=p.c.toUpperCase();pbtn.style.background=p.c;prev.style.borderRadius=p.r+'px';pbtn.style.borderRadius=p.r+'px';rval.textContent=p.r+'px';const pct=Math.round(p.r/16*100);rfill.style.width=pct+'%';rknob.style.left=pct+'%';}
+    apply();
+    if(!matchMedia('(prefers-reduced-motion:reduce)').matches){setInterval(()=>{i=(i+1)%presets.length;apply();},2600);}
+  }
+})();
+
+// studio "in action" auto-play tour
+(function(){
+  const cv=document.getElementById('studioCanvas'); if(!cv) return;
+  const scenes=[].slice.call(cv.querySelectorAll('.sc-scene'));
+  const label=document.getElementById('scLabel'), stepEl=cv.querySelector('.sc-step');
+  const data=[
+    {l:'Pick a product',d:2200},
+    {l:'Choose a recipe',d:2400},
+    {l:'Generate visuals',d:3000},
+    {l:'Turn it into a video',d:2400},
+    {l:'Ready to post everywhere',d:6500}
+  ];
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  let i=-1, timer, playing=false;
+  function next(){show((i+1)%scenes.length);}
+  function show(n){
+    i=n;
+    scenes.forEach((s,k)=>s.classList.toggle('on',k===n));
+    if(label) label.textContent=data[n]?data[n].l:'';
+    if(stepEl) stepEl.textContent='0'+(n+1);
+    const sc=scenes[n];
+    if(sc.tagName==='VIDEO'){try{sc.currentTime=0;sc.play();}catch(e){}}
+    clearTimeout(timer);
+    if(playing&&!reduce) timer=setTimeout(next,(data[n]?data[n].d:2500));
+  }
+  const o=new IntersectionObserver(es=>{es.forEach(e=>{
+    if(e.isIntersecting){ if(!playing){playing=true; show(i<0?(reduce?2:0):i);} }
+    else { playing=false; clearTimeout(timer); }
+  })},{threshold:.3});
+  o.observe(cv);
+})();
+
+// social planner drop-in + counter
+(function(){
+  const pl=document.getElementById('planner'); if(!pl) return;
+  const cnt=document.getElementById('plCount');
+  function ct(el,t,d){if(!el)return;let s=null;function f(x){if(!s)s=x;const p=Math.min((x-s)/d,1);el.textContent=Math.round(t*p);if(p<1)requestAnimationFrame(f);}requestAnimationFrame(f);}
+  const o=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){pl.classList.add('play');ct(cnt,9,1200);o.disconnect();}})},{threshold:.25});o.observe(pl);
+})();
+
+// platform tabs (back-office modules)
+(function(){
+  const wrap=document.getElementById('boTabs'); if(!wrap) return;
+  const tabs=wrap.querySelectorAll('.bo-tab');
+  const panels=document.querySelectorAll('.bo-panel');
+  function ctId(id,t,d){const el=document.getElementById(id);if(!el)return;let s=null;function f(x){if(!s)s=x;const p=Math.min((x-s)/d,1);el.textContent=Math.round(t*p).toLocaleString('en-US');if(p<1)requestAnimationFrame(f);}requestAnimationFrame(f);}
+  let emD=false, anD=false;
+  function activate(k){
+    tabs.forEach(t=>t.classList.toggle('active',t.dataset.tab===k));
+    panels.forEach(p=>p.classList.toggle('active',p.dataset.panel===k));
+    if(k==='email'&&!emD){emD=true;ctId('emDeliv',1240,1400);ctId('emOpen',486,1400);ctId('emClick',92,1400);}
+    if(k==='analytics'&&!anD){anD=true;ctId('anV',4820,1400);ctId('anL',312,1400);ctId('anC',47,1400);}
+  }
+  tabs.forEach(t=>{['mouseenter','click'].forEach(ev=>t.addEventListener(ev,()=>activate(t.dataset.tab)));});
+})();
+
+/* ARdealy live visualizer — opens the studio in a branded full-screen overlay.
+   Ported from the ARdealy SDK (https://ardealy.com/sdk/ardealy-sdk.js): same logo+spinner
+   loader, fade-in iframe and postMessage handshake, pointed straight at the visualizer URL. */
+(function(){
+  var CFG={
+    visualizerUrl:'https://studio.ardealy.com/visualizer/company',
+    vendorAlias:'company',
+    logo:'assets/ardlogoWhite.png'
+  };
+  var kf=document.createElement('style');
+  kf.textContent='@keyframes ardealy-spin{to{transform:rotate(360deg)}}@keyframes ardealy-logo-pulse{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.07);opacity:1}}';
+  document.head.appendChild(kf);
+  var overlay=null;
+  function open(sku){
+    if(overlay)return;
+    var url=CFG.visualizerUrl+(sku?('?sku='+encodeURIComponent(sku)):'');
+    overlay=document.createElement('div');
+    overlay.id='ardealy-overlay';
+    overlay.style.cssText='position:fixed;inset:0;z-index:999999;background:rgba(15,15,17,.74);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s ease';
+    var loader=document.createElement('div');
+    loader.style.cssText='display:flex;flex-direction:column;align-items:center;gap:18px;z-index:2;color:#fff;font-family:Geist,system-ui,sans-serif';
+    var lead=window.__lead;
+    if(lead&&(lead.logo||lead.name)){
+      /* personalized: show ONLY the lead's logo (their brand front and center) */
+      var chip=document.createElement('div');
+      if(lead.logo){
+        chip.style.cssText='display:inline-flex;align-items:center;background:#fff;border-radius:12px;padding:14px 18px;box-shadow:0 6px 22px rgba(0,0,0,.3);animation:ardealy-logo-pulse 1.7s ease-in-out infinite;max-width:78vw';
+        var li=document.createElement('img');
+        li.src=lead.logo;li.alt=lead.name||'';
+        li.style.cssText='height:44px;width:auto;max-width:240px;object-fit:contain;display:block';
+        chip.appendChild(li);
+      } else {
+        chip.style.cssText='display:inline-flex;align-items:center;gap:12px;animation:ardealy-logo-pulse 1.7s ease-in-out infinite';
+        var mono=document.createElement('span');
+        mono.textContent=lead.ini||'';
+        mono.style.cssText='display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;color:#fff;font-weight:600;font-size:19px;background:hsl('+(lead.hue||0)+',48%,46%)';
+        var nm=document.createElement('span');
+        nm.textContent=lead.name||'';
+        nm.style.cssText='color:#fff;font-size:22px;font-weight:500;white-space:nowrap';
+        chip.appendChild(mono);chip.appendChild(nm);
+      }
+      loader.appendChild(chip);
+    } else {
+      /* generic visit: ARdealy logo */
+      var logo=document.createElement('img');
+      logo.src=CFG.logo;logo.alt='ARdealy';
+      logo.style.cssText='width:150px;max-width:42vw;object-fit:contain;animation:ardealy-logo-pulse 1.6s ease-in-out infinite';
+      loader.appendChild(logo);
+    }
+    var spin=document.createElement('div');
+    spin.style.cssText='width:30px;height:30px;border:3px solid rgba(255,255,255,.25);border-top-color:#fff;border-radius:50%;animation:ardealy-spin .8s linear infinite';
+    loader.appendChild(spin);
+    var txt=document.createElement('div');
+    txt.textContent=(window.__lead&&window.__lead.name)?('Preparing '+window.__lead.name+"’s visualizer…"):'Loading visualizer…';
+    txt.style.cssText='font-size:13px;letter-spacing:.04em;opacity:.75';
+    loader.appendChild(txt);
+    overlay.appendChild(loader);
+    var close=document.createElement('button');
+    close.setAttribute('aria-label','Close');close.innerHTML='&times;';
+    close.style.cssText='position:absolute;top:18px;right:20px;z-index:4;width:42px;height:42px;border:none;border-radius:50%;background:rgba(0,0,0,.45);color:#fff;font-size:26px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s';
+    close.addEventListener('mouseenter',function(){close.style.background='rgba(0,0,0,.72)';});
+    close.addEventListener('mouseleave',function(){close.style.background='rgba(0,0,0,.45)';});
+    close.addEventListener('click',shut);
+    overlay.appendChild(close);
+    var frame=document.createElement('iframe');
+    frame.src=url;frame.setAttribute('allowfullscreen','');frame.allow='camera;fullscreen;clipboard-write;accelerometer;gyroscope';
+    frame.style.cssText='width:100%;height:100%;border:none;position:absolute;inset:0;opacity:0;transform:translateY(16px);transition:opacity .4s ease,transform .4s ease;z-index:3';
+    overlay.appendChild(frame);
+    document.body.appendChild(overlay);
+    document.body.style.overflow='hidden';
+    requestAnimationFrame(function(){overlay.style.opacity='1';});
+    var revealed=false,minPend=null,MIN_LOADER=1600,t0=Date.now();
+    function _reveal(){revealed=true;loader.style.opacity='0';loader.style.transition='opacity .3s ease';setTimeout(function(){loader.style.display='none';},300);if(close)close.style.display='none';/* hide our loader-close; the visualizer has its own */frame.style.opacity='1';frame.style.transform='translateY(0)';}
+    function doReveal(){ /* keep the branded loader on screen at least MIN_LOADER ms */
+      if(revealed||minPend)return;
+      var wait=MIN_LOADER-(Date.now()-t0);
+      if(wait>0){minPend=setTimeout(_reveal,wait);}else{_reveal();}
+    }
+    function syncH(){var h=window.visualViewport?window.visualViewport.height:window.innerHeight;overlay.style.height=h+'px';if(frame.contentWindow){try{frame.contentWindow.postMessage({type:'VIEWPORT_HEIGHT',height:h},'*');}catch(e){}}}
+    function onMsg(ev){
+      var d=ev.data;if(typeof d==='string'){try{d=JSON.parse(d);}catch(e){}}
+      if(!d||!d.type)return;
+      switch(d.type){
+        case 'FRAME_LOADED':
+          doReveal();
+          try{frame.contentWindow.postMessage(JSON.stringify({type:'INIT_IFRAME',vendorAlias:CFG.vendorAlias,productId:sku||null}),'*');}catch(e){}
+          syncH();break;
+        case 'FRAME_CLOSED':shut();break;
+        case 'FRAME_CONSENT':try{localStorage.setItem(CFG.vendorAlias+'.ardealy.cookie.consent',d.value);}catch(e){}break;
+        case 'GET_CONSENT_LOCAL_STORAGE':try{var v=localStorage.getItem(CFG.vendorAlias+'.ardealy.cookie.consent');frame.contentWindow.postMessage(JSON.stringify({type:'CONSENT_VALUE',value:v}),'*');}catch(e){}break;
+      }
+    }
+    function onKey(e){if(e.key==='Escape')shut();}
+    window.addEventListener('message',onMsg);
+    window.addEventListener('resize',syncH);
+    document.addEventListener('keydown',onKey);
+    overlay.addEventListener('click',function(e){if(e.target===overlay)shut();});
+    syncH();
+    var fb=setTimeout(doReveal,2400); /* fallback if the studio never emits FRAME_LOADED */
+    function shut(){
+      clearTimeout(fb);clearTimeout(minPend);overlay.style.opacity='0';
+      window.removeEventListener('message',onMsg);window.removeEventListener('resize',syncH);document.removeEventListener('keydown',onKey);
+      var o=overlay;overlay=null;
+      setTimeout(function(){if(o&&o.parentNode)o.parentNode.removeChild(o);},300);
+      document.body.style.overflow='';
+    }
+  }
+  window.ARdealyVisualizer={open:open};
+  document.addEventListener('click',function(e){
+    var t=e.target.closest&&e.target.closest('[data-ardealy-visualizer]');
+    if(t){e.preventDefault();open(t.getAttribute('data-ardealy-sku')||null);}
+  });
+})();
+</script>
+</body>
+</html>
