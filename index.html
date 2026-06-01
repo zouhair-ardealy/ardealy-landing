@@ -866,8 +866,10 @@ p{color:var(--gray)}
     im.onerror=function(){ done(null); }; /* 404 / load fail → monogram */
     im.src=url;
   }
+  /* expose the lead's brand so the visualizer overlay can co-brand its loading screen */
+  window.__lead={logo:null,name:label,ini:initials(label),hue:hue(label||'x'),domain:domain};
   if(!logoUrl){ monoBoth(); }
-  else { loadTrimmed(logoUrl,function(res){ if(!res){ monoBoth(); return; } setImg(navImg,navTxt,res); setImg(vizImg,vizTxt,res); }); }
+  else { loadTrimmed(logoUrl,function(res){ if(!res){ monoBoth(); return; } window.__lead.logo=res; setImg(navImg,navTxt,res); setImg(vizImg,vizTxt,res); }); }
 })();
 
 // scroll reveal
@@ -1028,15 +1030,43 @@ function showSuccess(){form.style.display='none';document.getElementById('formSu
     overlay.style.cssText='position:fixed;inset:0;z-index:999999;background:rgba(15,15,17,.74);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s ease';
     var loader=document.createElement('div');
     loader.style.cssText='display:flex;flex-direction:column;align-items:center;gap:18px;z-index:2;color:#fff;font-family:Geist,system-ui,sans-serif';
+    var lead=window.__lead;
+    var brand=document.createElement('div');
+    brand.style.cssText='display:flex;align-items:center;gap:14px;max-width:88vw';
     var logo=document.createElement('img');
     logo.src=CFG.logo;logo.alt='ARdealy';
-    logo.style.cssText='width:150px;max-width:42vw;object-fit:contain;animation:ardealy-logo-pulse 1.6s ease-in-out infinite';
-    loader.appendChild(logo);
+    logo.style.cssText=(lead&&(lead.logo||lead.name)?'height:36px':'width:150px;max-width:42vw')+';object-fit:contain;animation:ardealy-logo-pulse 1.6s ease-in-out infinite';
+    brand.appendChild(logo);
+    if(lead&&(lead.logo||lead.name)){
+      var x=document.createElement('span');
+      x.textContent='×';
+      x.style.cssText='font-size:22px;color:rgba(255,255,255,.45);font-weight:300';
+      brand.appendChild(x);
+      var chip=document.createElement('span');
+      if(lead.logo){
+        chip.style.cssText='display:inline-flex;align-items:center;background:#fff;border-radius:8px;padding:7px 12px;box-shadow:0 2px 10px rgba(0,0,0,.25)';
+        var li=document.createElement('img');
+        li.src=lead.logo;li.alt=lead.name||'';
+        li.style.cssText='height:28px;width:auto;max-width:160px;object-fit:contain;display:block';
+        chip.appendChild(li);
+      } else {
+        chip.style.cssText='display:inline-flex;align-items:center;gap:9px';
+        var mono=document.createElement('span');
+        mono.textContent=lead.ini||'';
+        mono.style.cssText='display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;color:#fff;font-weight:600;font-size:15px;background:hsl('+(lead.hue||0)+',48%,46%)';
+        var nm=document.createElement('span');
+        nm.textContent=lead.name||'';
+        nm.style.cssText='color:#fff;font-size:17px;font-weight:500;white-space:nowrap';
+        chip.appendChild(mono);chip.appendChild(nm);
+      }
+      brand.appendChild(chip);
+    }
+    loader.appendChild(brand);
     var spin=document.createElement('div');
     spin.style.cssText='width:30px;height:30px;border:3px solid rgba(255,255,255,.25);border-top-color:#fff;border-radius:50%;animation:ardealy-spin .8s linear infinite';
     loader.appendChild(spin);
     var txt=document.createElement('div');
-    txt.textContent='Loading visualizer…';
+    txt.textContent=(window.__lead&&window.__lead.name)?('Preparing '+window.__lead.name+"’s visualizer…"):'Loading visualizer…';
     txt.style.cssText='font-size:13px;letter-spacing:.04em;opacity:.75';
     loader.appendChild(txt);
     overlay.appendChild(loader);
