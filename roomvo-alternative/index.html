@@ -915,7 +915,7 @@ p{color:var(--gray)}
   function hue(s){var h=0;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))%360;return h;}
   function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
   function showId(txt){ if(!txt)return; txt.classList.add('filled'); txt.style.display='';
-    txt.innerHTML='<span class="lead-mono" style="background:hsl('+hue(label||'x')+',48%,42%)">'+esc(initials(label))+'</span><span class="lead-name">'+esc(label)+'</span>'; }
+    txt.innerHTML='<span class="lead-name">'+esc(label)+'</span>'; }
   var hasToken=LOGODEV_TOKEN.indexOf('pk_')===0 && LOGODEV_TOKEN!=='pk_XXXX';
   var logoUrl = logoOverride || (domain && hasToken
       ? 'https://img.logo.dev/'+domain+'?token='+encodeURIComponent(LOGODEV_TOKEN)+'&size=256&format=png&retina=true&fallback=404'
@@ -1123,14 +1123,11 @@ function showSuccess(){form.style.display='none';document.getElementById('formSu
         li.style.cssText='height:44px;width:auto;max-width:240px;object-fit:contain;display:block';
         chip.appendChild(li);
       } else {
-        chip.style.cssText='display:inline-flex;align-items:center;gap:12px;animation:ardealy-logo-pulse 1.7s ease-in-out infinite';
-        var mono=document.createElement('span');
-        mono.textContent=lead.ini||'';
-        mono.style.cssText='display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:10px;color:#fff;font-weight:600;font-size:19px;background:hsl('+(lead.hue||0)+',48%,46%)';
+        chip.style.cssText='display:inline-flex;align-items:center;animation:ardealy-logo-pulse 1.7s ease-in-out infinite';
         var nm=document.createElement('span');
         nm.textContent=lead.name||'';
-        nm.style.cssText='color:#fff;font-size:22px;font-weight:500;white-space:nowrap';
-        chip.appendChild(mono);chip.appendChild(nm);
+        nm.style.cssText='color:#fff;font-size:26px;font-weight:500;white-space:nowrap;letter-spacing:-.01em';
+        chip.appendChild(nm);
       }
       loader.appendChild(chip);
     } else {
