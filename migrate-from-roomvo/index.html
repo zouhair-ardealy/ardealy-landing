@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ARdealy — Migrate from Roomvo to a full growth engine</title>
+<title>ARdealy: Migrate from Roomvo to a full growth engine</title>
 <meta name="description" content="On Roomvo? You already have a visualizer. ARdealy gives you the whole engine — visualizer plus lead capture, AI content, social, email and analytics. Migrate in days; we move your catalog for free.">
-<meta property="og:title" content="Migrate from Roomvo — the whole engine, not just a visualizer.">
+<meta property="og:title" content="Migrate from Roomvo: the whole engine, not just a visualizer.">
 <meta property="og:description" content="Everything Roomvo does, plus everything it doesn't: lead capture, AI content, campaigns and conversion analytics. One platform, for less.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -436,6 +436,23 @@ p{color:var(--gray)}
 .proof-badge .pb-old{color:var(--faint);text-decoration:line-through;text-decoration-thickness:1px}
 .proof-arrow{color:var(--faint);font-size:16px}
 .proof-badge .pb-new{color:var(--ink);font-weight:500}
+/* gap illustration */
+.gap-illu{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;flex-direction:column;align-self:center;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.gap-row{display:flex;align-items:center;gap:14px;padding:14px 14px;border-radius:11px}
+.gap-n{font-family:var(--title);font-size:13px;color:var(--faint);min-width:20px;flex:none}
+.gap-lab{flex:1;font-family:var(--body);font-size:14.5px;color:var(--ink);line-height:1.3}
+.gap-ic{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex:none}
+.gap-done{background:#F2FBF5;border:1px solid #CFEBD8}
+.gap-done .gap-n{color:#16A34A}
+.gap-done .gap-lab{font-weight:600}
+.gap-ok{background:#16A34A;color:#fff}
+.gap-ok svg{width:12px;height:12px;stroke:#fff;stroke-width:3.2;fill:none}
+.gap-tag{font-family:var(--body);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#16A34A;background:#E6F4EA;padding:3px 8px;border-radius:999px;flex:none}
+.gap-cut{display:flex;align-items:center;gap:12px;margin:8px 4px;color:#C0392B;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;opacity:.85}
+.gap-cut::before,.gap-cut::after{content:"";flex:1;height:0;border-top:1.5px dashed #E3B7B0}
+.gap-miss{opacity:.55}
+.gap-miss .gap-lab{color:var(--gray);font-weight:400}
+.gap-q{background:var(--soft);color:var(--faint)}
 </style>
 </head>
 <body>
@@ -513,7 +530,14 @@ p{color:var(--gray)}
         <h2>A visualizer is where it starts.<br><span class="dim">Not where the sale is won.</span></h2>
         <p class="lead">Roomvo renders your products beautifully. But the render is the easy part. Everything that turns a curious shopper into a customer, capturing them, following up, marketing your range, Roomvo leaves to you.</p>
       </div>
-      <img class="prob-photo reveal" src="assets/sample-in-hand.png" alt="A customer holding a single oak flooring sample plank in an empty room">
+      <div class="prob-photo gap-illu reveal">
+        <div class="gap-row gap-done"><span class="gap-n">01</span><span class="gap-lab">Customer visualizes your product</span><span class="gap-tag">Roomvo</span><span class="gap-ic gap-ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span></div>
+        <div class="gap-cut"><span>Roomvo stops here</span></div>
+        <div class="gap-row gap-miss"><span class="gap-n">02</span><span class="gap-lab">Lead captured</span><span class="gap-ic gap-q">?</span></div>
+        <div class="gap-row gap-miss"><span class="gap-n">03</span><span class="gap-lab">Followed up &amp; nurtured</span><span class="gap-ic gap-q">?</span></div>
+        <div class="gap-row gap-miss"><span class="gap-n">04</span><span class="gap-lab">Marketed across channels</span><span class="gap-ic gap-q">?</span></div>
+        <div class="gap-row gap-miss"><span class="gap-n">05</span><span class="gap-lab">Conversion measured</span><span class="gap-ic gap-q">?</span></div>
+      </div>
     </div>
     <div class="grid3">
       <div class="card reveal"><div class="num">01</div><div class="aline"></div><div class="tag">The lead vanishes</div><h3>Rendered, then gone</h3><p>A shopper visualizes your product, loves it, and leaves. The visualizer showed it beautifully, but no one captured them. You'll never know who they were.</p></div>
