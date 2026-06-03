@@ -830,8 +830,9 @@ p{color:var(--gray)}
       heroUrl=document.getElementById('heroUrl'), vizUrl=document.getElementById('vizUrl');
   if(!personalized){ [navX,navTxt,vizTxt].forEach(function(el){if(el)el.style.display='none';}); return; }
   if(domain){ if(vizUrl)vizUrl.textContent='visualizer.'+domain; if(heroUrl)heroUrl.textContent=domain; }
-  if(!name && domain){ var b=domain.split('.')[0]; name=b.charAt(0).toUpperCase()+b.slice(1); } /* anitra.lv → Anitra */
+  if(!name && domain){ name=domain.split('.')[0].split('-').map(function(w){return w?w.charAt(0).toUpperCase()+w.slice(1):w;}).join(' '); } /* saint-maclou.com → Saint Maclou */
   var label=name||domain||'';
+  var heroPill=document.querySelector('.pill'); if(heroPill&&label){ heroPill.textContent=(document.documentElement.lang==='fr'?'Conçu pour ':'Built for ')+label; }
   function initials(s){var p=(s||'').replace(/[^\p{L}\p{N} ]/gu,' ').trim().split(/\s+/).filter(Boolean);if(!p.length)return '?';return (p.length===1?p[0].slice(0,2):p[0][0]+p[1][0]).toUpperCase();}
   function hue(s){var h=0;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))%360;return h;}
   function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
